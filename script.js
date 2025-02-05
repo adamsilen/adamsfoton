@@ -2,7 +2,7 @@ const gallery = document.getElementById('gallery');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const closeBtn = document.getElementById('close');
-let currentIndex = 16;
+let currentIndex = 100;
 let isLoading = false;
 let hasReachedEnd = false;
 
@@ -91,15 +91,26 @@ async function loadImages() {
     isLoading = true;
     const imagesToLoad = calculateImagesToLoad();
     let loadedInBatch = 0;
+    let attempts = 0;
 
     while (currentIndex >= 1 && loadedInBatch < imagesToLoad) {
         const loaded = await loadSingleImage(currentIndex);
-        if (loaded) loadedInBatch++;
+        if (loaded) {
+            loadedInBatch++;
+        }
         currentIndex--;
+        attempts++;
+
+        // Add a small pause every 20 attempts
+        if (attempts % 20 === 0) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
     }
 
     isLoading = false;
 }
+
+
 
 function openLightbox(src) {
     lightboxImg.src = src;
