@@ -55,13 +55,7 @@ function loadSingleImage(index) {
     return new Promise(resolve => {
         const imgElement = document.createElement('img');
         
-        // Add a timeout to quickly skip missing images
-        const timeoutId = setTimeout(() => {
-            resolve(false);  // Resolve false if image takes too long to load
-        }, 100);  // Only wait 100ms before moving on
-        
         imgElement.onload = () => {
-            clearTimeout(timeoutId);  // Clear the timeout if image loads
             gallery.appendChild(imgElement);
             setTimeout(() => {
                 imgElement.classList.add('visible');
@@ -81,14 +75,14 @@ function loadSingleImage(index) {
         };
 
         imgElement.onerror = () => {
-            clearTimeout(timeoutId);  // Clear the timeout on error
-            resolve(false);
+            resolve(false);  // Just resolve immediately on error
         };
 
         imgElement.src = `images/${index}.jpeg`;
         imgElement.alt = `${index}.jpeg`;
     });
 }
+
 
 
 async function loadImages() {
