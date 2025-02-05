@@ -2,7 +2,7 @@ const gallery = document.getElementById('gallery');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const closeBtn = document.getElementById('close');
-let currentIndex = 100;
+let currentIndex = 60;
 let isLoading = false;
 let hasReachedEnd = false;
 
@@ -100,10 +100,8 @@ async function loadImages() {
         }
         currentIndex--;
         attempts++;
-
-        // Add a small pause every 20 attempts
         if (attempts % 20 === 0) {
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 20));
         }
     }
 
@@ -136,7 +134,7 @@ let scrollTimeout;
 function onScroll() {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
             loadImages();
             if (hasReachedEnd && !document.querySelector('p') && isPageScrollable()) {
                 addEndingParagraph();
@@ -151,7 +149,7 @@ let resizeTimeout;
 function onResize() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
             loadImages();
         }
     }, 250);
