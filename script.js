@@ -2,7 +2,7 @@ const gallery = document.getElementById('gallery');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const closeBtn = document.getElementById('close');
-let currentIndex = 200;
+let currentIndex = 16;
 let isLoading = false;
 let hasReachedEnd = false;
 
