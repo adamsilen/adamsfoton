@@ -55,27 +55,33 @@ function loadSingleImage(index) {
     return new Promise(resolve => {
         const imgElement = document.createElement('img');
         
+        // Add a timeout to quickly skip missing images
+        const timeoutId = setTimeout(() => {
+            resolve(false);  // Resolve false if image takes too long to load
+        }, 100);  // Only wait 100ms before moving on
+        
         imgElement.onload = () => {
+            clearTimeout(timeoutId);  // Clear the timeout if image loads
             gallery.appendChild(imgElement);
             setTimeout(() => {
                 imgElement.classList.add('visible');
             }, 50);
             imgElement.addEventListener('click', () => openLightbox(imgElement.src));
-    
-    if (index === 1) {
-        hasReachedEnd = true;
-        if (isPageScrollable()) {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
-                addEndingParagraph();
+            
+            if (index === 1) {
+                hasReachedEnd = true;
+                if (isPageScrollable()) {
+                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+                        addEndingParagraph();
+                    }
+                }
             }
-        }
-    }
-    
-    resolve(true);
-};
-
+            
+            resolve(true);
+        };
 
         imgElement.onerror = () => {
+            clearTimeout(timeoutId);  // Clear the timeout on error
             resolve(false);
         };
 
@@ -83,6 +89,7 @@ function loadSingleImage(index) {
         imgElement.alt = `${index}.jpeg`;
     });
 }
+
 
 async function loadImages() {
     if (isLoading || currentIndex < 1) return;
