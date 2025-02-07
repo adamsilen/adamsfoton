@@ -6,6 +6,11 @@ let currentIndex = 60;
 let isLoading = false;
 let hasReachedEnd = false;
 
+const loadingSpinner = document.createElement('div');
+loadingSpinner.id = 'loading-spinner';
+loadingSpinner.innerHTML = '<div class="spinner"></div>';
+document.body.appendChild(loadingSpinner);
+
 document.addEventListener('DOMContentLoaded', function() {
     const heading = document.querySelector('h1');
     const paragraph = document.querySelector('p');
@@ -89,6 +94,7 @@ async function loadImages() {
     if (isLoading || currentIndex < 1) return;
     
     isLoading = true;
+    loadingSpinner.style.display = 'block'; 
     const imagesToLoad = calculateImagesToLoad();
     let loadedInBatch = 0;
     let attempts = 0;
@@ -106,6 +112,7 @@ async function loadImages() {
     }
 
     isLoading = false;
+    loadingSpinner.style.display = 'none'; // Hide loading spinner
 }
 
 
