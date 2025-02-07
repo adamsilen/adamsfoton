@@ -8,7 +8,7 @@ let hasReachedEnd = false;
 
 const loadingSpinner = document.createElement('div');
 loadingSpinner.id = 'loading-spinner';
-loadingSpinner.innerHTML = '<div class="spinner"></div>';
+loadingSpinner.innerHTML = '<div class="spinner"><div></div><div></div><div></div></div>';
 document.body.appendChild(loadingSpinner);
 
 document.addEventListener('DOMContentLoaded', function() {
