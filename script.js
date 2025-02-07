@@ -45,14 +45,14 @@ function calculateImagesToLoad() {
     
     if (viewportWidth <= 768) {
         const imageHeight = viewportHeight * 0.9;
-        const rowsToFill = Math.ceil(viewportHeight / imageHeight) + 1; // Reduced rows to fill
+        const rowsToFill = Math.ceil(viewportHeight / imageHeight) + 3; 
         return rowsToFill;
     } else {
         const imageWidth = 300;
         const imageHeight = 312;
         const imagesPerRow = Math.floor(viewportWidth / imageWidth);
-        const rowsToFill = Math.ceil(viewportHeight / imageHeight) + 1;
-        return Math.max(imagesPerRow * rowsToFill, 2);
+        const rowsToFill = Math.ceil(viewportHeight / imageHeight) + 2;
+        return Math.max(imagesPerRow * rowsToFill, 4); 
     }
 }
 
@@ -96,7 +96,7 @@ async function loadImages() {
     const imagesToLoad = calculateImagesToLoad();
     let loadedInBatch = 0;
     let attempts = 0;
-    const spinnerMinDisplayTime = 1000; // Minimum display time for the spinner
+    const spinnerMinDisplayTime = 2000; // Minimum display time for the spinner
     const spinnerStartTime = Date.now();
 
     while (currentIndex >= 1 && loadedInBatch < imagesToLoad) {
