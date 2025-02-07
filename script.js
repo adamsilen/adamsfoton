@@ -88,13 +88,11 @@ function loadSingleImage(index) {
     });
 }
 
-
-
 async function loadImages() {
     if (isLoading || currentIndex < 1) return;
     
     isLoading = true;
-    loadingSpinner.style.display = 'block'; 
+    loadingSpinner.style.display = 'block'; // Show loading spinner immediately
     const imagesToLoad = calculateImagesToLoad();
     let loadedInBatch = 0;
     let attempts = 0;
@@ -114,8 +112,6 @@ async function loadImages() {
     isLoading = false;
     loadingSpinner.style.display = 'none'; // Hide loading spinner
 }
-
-
 
 function openLightbox(src) {
     lightboxImg.src = src;
@@ -149,8 +145,6 @@ function onScroll() {
         }
     }, 100);
 }
-
-
 
 let resizeTimeout;
 function onResize() {
