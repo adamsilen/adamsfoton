@@ -96,6 +96,8 @@ async function loadImages() {
     const imagesToLoad = calculateImagesToLoad();
     let loadedInBatch = 0;
     let attempts = 0;
+    const spinnerMinDisplayTime = 1000; // Minimum display time for the spinner
+    const spinnerStartTime = Date.now();
 
     while (currentIndex >= 1 && loadedInBatch < imagesToLoad) {
         const loaded = await loadSingleImage(currentIndex);
@@ -107,6 +109,11 @@ async function loadImages() {
         if (attempts % 10 === 0) { // Reduced the number of attempts before yielding
             await new Promise(resolve => setTimeout(resolve, 20));
         }
+    }
+
+    const elapsedTime = Date.now() - spinnerStartTime;
+    if (elapsedTime < spinnerMinDisplayTime) {
+        await new Promise(resolve => setTimeout(resolve, spinnerMinDisplayTime - elapsedTime));
     }
 
     isLoading = false;
