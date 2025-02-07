@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function addEndingParagraph() {
     const paragraph = document.createElement('p');
-    paragraph.textContent = "Du har nått slutet. Tack för att du tog dig tid och tittade på mina foton <3";
+    paragraph.textContent = "Du har nått slutet. Tack för att du tog dig tid och tittade på mina foton!";
     document.body.appendChild(paragraph);
     setTimeout(() => {
         paragraph.classList.add('visible');
