@@ -45,7 +45,7 @@ function calculateImagesToLoad() {
     
     if (viewportWidth <= 768) {
         const imageHeight = viewportHeight * 0.9;
-        const rowsToFill = Math.ceil(viewportHeight / imageHeight) + 2;
+        const rowsToFill = Math.ceil(viewportHeight / imageHeight) + 1; // Reduced rows to fill
         return rowsToFill;
     } else {
         const imageWidth = 300;
@@ -104,7 +104,7 @@ async function loadImages() {
         }
         currentIndex--;
         attempts++;
-        if (attempts % 20 === 0) {
+        if (attempts % 10 === 0) { // Reduced the number of attempts before yielding
             await new Promise(resolve => setTimeout(resolve, 20));
         }
     }
